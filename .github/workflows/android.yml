@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -27,8 +26,11 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
-    - name: Upload debug APK
+    - name: Zip project
+      run: zip -r project-archive.zip . -x "*.git*"
+
+    - name: Upload ZIP
       uses: actions/upload-artifact@v3
       with:
-        name: debug-apk
-        path: app/build/outputs/apk/debug/app-debug.apk
+        name: project-archive
+        path: project-archive.zip
